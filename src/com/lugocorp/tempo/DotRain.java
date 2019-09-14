@@ -7,7 +7,7 @@ import java.awt.Color;
 
 class DotRain implements Updatable{
   private static final Random rand=new Random();
-  private static final int n=8;
+  private static final int n=20;
   private final ArrayList<LinkedList<Bubble>> chains=new ArrayList<LinkedList<Bubble>>();
   private static final int RAD=20;
   private static final int DIA=RAD*2;

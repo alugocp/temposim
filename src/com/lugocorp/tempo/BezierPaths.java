@@ -5,7 +5,7 @@ import java.awt.Color;
 
 class BezierPaths implements Updatable{
   private static final Random rand=new Random();
-  private static final int n=6;
+  private static final int n=12;
   private final Bubble[] bubbles=new Bubble[n];
   private static final int RAD=30;
   private static final int DIA=RAD*2;

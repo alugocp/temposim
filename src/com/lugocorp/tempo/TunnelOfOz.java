@@ -47,7 +47,8 @@ class TunnelOfOz implements Updatable{
   public void render(Graphics g){
     Graphics2D g2=(Graphics2D)g;
     g2.setStroke(stroke);
-    g.setColor(Color.BLACK);
+    g.setColor(Color.BLUE);
+    g.fillRect(0,0,Sim.WIDTH,Sim.HEIGHT);
     for(int a=0;a<rings.size();a++){
       Ring r=rings.get(a);
       int x=r.x-r.r;

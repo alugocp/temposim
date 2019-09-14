@@ -54,9 +54,9 @@ class FourierBubbles implements Updatable{
       this.x=x+rand.nextInt(601)-275;
       this.y=y+rand.nextInt(601)-275;
       int green=rand.nextInt(101);
-      int red=rand.nextInt(151-green)+green;
-      int blue=rand.nextInt(256-red)+red;
-      c=new Color(red,green,blue,rand.nextInt(101)+100);
+      int blue=rand.nextInt(151-green)+green;
+      int red=rand.nextInt(256-blue)+blue;
+      c=new Color(red,green,blue,rand.nextInt(106)+150);
       r0=rand.nextInt(101)+25;
       r=r0;
     }

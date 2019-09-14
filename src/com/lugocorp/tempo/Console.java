@@ -13,7 +13,6 @@ class Console implements Updatable{
   private int current=0;
   private static final Message[] messages={
     new Message(0.1,"Welcome to TempoSim"),
-    new Message(0.1,"(Brought to you by LugoCorp)"),
     new Message(0.5,"Activating calibration protocol"),
     new Message(0.3,"Calibrating for clarinet..."),
     new Message(0.3,"Calibrating for harp..."),
@@ -21,25 +20,19 @@ class Console implements Updatable{
     new Message(0.2,"Calibration complete"),
     new Message(0.2,"Connecting to server..."),
     new Message(0.4,"Connection established"),
-    new Message(0.1,"Now playing in 3..."),
-    new Message(1.0,"2..."),
-    new Message(1.0,"1..."),
+    new Message(0.1,"Press any key when ready"),
   };
-  static double getDuration(){
-    double total=1.0;
-    for(int a=0;a<messages.length;a++) total+=messages[a].timer;
-    return total;
-  }
 
   @Override
   public boolean update(double dt){
-    if(current==messages.length) return true;
+    boolean keypress=Main.getInstance().consumeKeypress();
+    if(current==messages.length) return !keypress;
     timer+=dt;
     if(timer>=messages[current].timer){
       timer-=messages[current].timer;
       current++;
     }
-    return true;
+    return !keypress;
   }
 
   @Override

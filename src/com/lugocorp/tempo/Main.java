@@ -10,22 +10,36 @@ import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
 
-class Main extends JFrame{
+class Main extends JFrame implements KeyListener{
   private static Main instance;
   static final long serialVersionUID=103;
   private static final int WAIT_FRAMES=32;
   private static final double DT=WAIT_FRAMES*0.001;
   private final List<Updatable> actors=new LinkedList<>();
+  //private final UsbListener usb=new UsbListener();
+  private boolean keypress=false;
   private final Timer updater;
   private final JPanel panel;
   private Sim sim;
 
   public static void main(String[] args){
+    int type=Sim.DREAM;
+    if(args.length!=1){
+      System.out.println("Error: incorrect number of parameters");
+      System.exit(1);
+    }
+    if(args[0].equals("swing")) type=Sim.SWING;
+    else if(!args[0].equals("dream")){
+      System.out.println(String.format("Unknown show '%s'",args[0]));
+      System.exit(1);
+    }
     instance=new Main();
-    instance.sim=new Sim(instance);
+    instance.sim=new Sim(instance,type);
     instance.start();
   }
   static Main getInstance(){
@@ -33,7 +47,15 @@ class Main extends JFrame{
   }
   private Main(){
     super("TempoSim");
-    setResizable(false);
+    /*try{
+      usb.start();
+    }catch(Exception e){
+      e.printStackTrace();
+      System.exit(1);
+    }*/
+    setExtendedState(JFrame.MAXIMIZED_BOTH);
+    setUndecorated(true);
+    setVisible(true);
     setVisible(true);
     addWindowListener(new WindowAdapter(){
       public void windowClosing(WindowEvent e){
@@ -47,11 +69,16 @@ class Main extends JFrame{
         render(g);
       }
     };
+    try{
+      Thread.sleep(100);
+    }catch(InterruptedException e){}
+    Sim.HEIGHT=getHeight();
+    Sim.WIDTH=getWidth();
     panel.setPreferredSize(new Dimension(Sim.WIDTH,Sim.HEIGHT));
     setLocationRelativeTo(null);
+    addKeyListener(this);
     add(panel);
     pack();
-
     updater=new Timer(WAIT_FRAMES,(ActionEvent e) -> frame(DT));
     updater.setRepeats(true);
     setVisible(true);
@@ -70,13 +97,35 @@ class Main extends JFrame{
     //actors.add(new LavaLamp(new Color(200,0,200)));
     //actors.add(new BezierPaths());
     //actors.add(new DotRain());
+    //actors.add(new Rectangles());
+    //actors.add(new Squares());
     updater.start();
   }
   void add(Updatable u){
     actors.add(u);
   }
   void clear(){
+    keypress=false;
     actors.clear();
+  }
+  boolean cleared(){
+    return actors.size()==0;
+  }
+
+  @Override
+  public void keyPressed(KeyEvent e){}
+  @Override
+  public void keyTyped(KeyEvent e){}
+  @Override
+  public void keyReleased(KeyEvent e){
+    keypress=true;
+  }
+  boolean consumeKeypress(){
+    if(keypress){
+      keypress=false;
+      return true;
+    }
+    return false;
   }
 
   private void render(Graphics g){
