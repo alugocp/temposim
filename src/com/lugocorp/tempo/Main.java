@@ -21,7 +21,6 @@ class Main extends JFrame implements KeyListener{
   private static final int WAIT_FRAMES=32;
   private static final double DT=WAIT_FRAMES*0.001;
   private final List<Updatable> actors=new LinkedList<>();
-  //private final UsbListener usb=new UsbListener();
   private boolean keypress=false;
   private final Timer updater;
   private final JPanel panel;
@@ -40,19 +39,13 @@ class Main extends JFrame implements KeyListener{
     }
     instance=new Main();
     instance.sim=new Sim(instance,type);
-    instance.start();
+    instance.start(type);
   }
   static Main getInstance(){
     return instance;
   }
   private Main(){
     super("TempoSim");
-    /*try{
-      usb.start();
-    }catch(Exception e){
-      e.printStackTrace();
-      System.exit(1);
-    }*/
     setExtendedState(JFrame.MAXIMIZED_BOTH);
     setUndecorated(true);
     setVisible(true);
@@ -83,22 +76,8 @@ class Main extends JFrame implements KeyListener{
     updater.setRepeats(true);
     setVisible(true);
   }
-  private void start(){
-    // Set 1
-    actors.add(new Console());
-    //actors.add(new GradientBg(Color.BLUE));
-    //actors.add(new TunnelOfOz());
-    //actors.add(new BubbleSpawner(new Color(200,0,200),250,150,50));
-    //actors.add(new FourierBubbles());
-    //actors.add(new FourierWave());
-
-    // Set 2
-    //actors.add(new TwoGradientBg(Color.BLUE));
-    //actors.add(new LavaLamp(new Color(200,0,200)));
-    //actors.add(new BezierPaths());
-    //actors.add(new DotRain());
-    //actors.add(new Rectangles());
-    //actors.add(new Squares());
+  private void start(int type){
+    actors.add(new Console(type==Sim.SWING?0:-1));
     updater.start();
   }
   void add(Updatable u){

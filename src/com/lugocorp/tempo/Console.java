@@ -12,16 +12,47 @@ class Console implements Updatable{
   private double timer=0;
   private int current=0;
   private static final Message[] messages={
-    new Message(0.1,"Welcome to TempoSim"),
-    new Message(0.5,"Activating calibration protocol"),
-    new Message(0.3,"Calibrating for clarinet..."),
-    new Message(0.3,"Calibrating for harp..."),
-    new Message(0.3,"Calibrating for bass..."),
-    new Message(0.2,"Calibration complete"),
-    new Message(0.2,"Connecting to server..."),
-    new Message(0.4,"Connection established"),
-    new Message(0.1,"Press any key when ready"),
+    new Message(0.10,"Welcome to Alex Lugo's TempoSim"),
+    new Message(0.30,"Activating calibration protocol"),
+    new Message(0.20,"Calibrating for instrument 1..."),
+    new Message(0.20,"Calibrating for instrument 2..."),
+    new Message(0.20,"Calibrating for instrument 3..."),
+    new Message(0.10,"Calibration complete"),
+    new Message(0.40,"Connecting to server..."),
+    new Message(0.10,"Connection established"),
+    new Message(0.01,"Downloading Fortnite client..."),
+    new Message(0.01,"Preparing to bust..."),
+    new Message(0.01,"Generating Minecraft seed"),
+    new Message(0.01,"Chunk 1 generated"),
+    new Message(0.01,"Chunk 2 generated"),
+    new Message(0.01,"Chunk 3 generated"),
+    new Message(0.01,"Chunk 4 generated"),
+    new Message(0.01,"Chunk 5 generated"),
+    new Message(0.10,"Full context generated"),
+    new Message(0.01,"Downloading more RAM..."),
+    new Message(0.01,"Launching Gurpreet virus..."),
+    new Message(0.01,"Loading simulation details..."),
+    new Message(0.10,"Loading BezierPaths"),
+    new Message(0.10,"Loading BubbleSpawner"),
+    new Message(0.10,"Loading DotRain"),
+    new Message(0.10,"Loading FourierBubbles"),
+    new Message(0.10,"Loading FourierWave"),
+    new Message(0.10,"Loading GradientBg"),
+    new Message(0.10,"Loading LavaLamp"),
+    new Message(0.10,"Loading Rectangles"),
+    new Message(0.10,"Loading Squares"),
+    new Message(0.10,"Loading TunnelOfOz"),
+    new Message(0.10,"Loading TwoGradientBg"),
+    new Message(0.30,"Simulation build complete"),
+    new Message(0.10,"Ready to start simulation"),
+    new Message(0.01,""),
+    new Message(0.10,"Press any key when ready"),
   };
+
+  Console(int start){
+    if(start==-1) current=messages.length;
+    else current=start;
+  }
 
   @Override
   public boolean update(double dt){
